@@ -1,5 +1,4 @@
 import os
-import math
 import cv2 as cv
 import hand_tracking_module as htm
 
@@ -8,14 +7,14 @@ import hand_tracking_module as htm
 # vid.set(3, width_cam)
 # vid.set(4, height_cam)
 
-ges_detector = htm.HandDetector()
+rps_detector = htm.HandDetector()
 
 fist_flag = True
 scissors_flag = True
 paper4_flag = True
 exit_flag = True
 
-def gesture_control(img, lm_list):
+def rps_control(img, lm_list):
     global fist_flag, scissors_flag, paper4_flag, exit_flag
     finger_tips = [4, 8, 12, 16, 20]
     finger_pips = [2, 6, 10, 14, 18]
@@ -25,10 +24,6 @@ def gesture_control(img, lm_list):
     pinky_mcp = (lm_list[17][1], lm_list[17][2])
     thumb_tip = (lm_list[4][1], lm_list[4][2])
     wrist = (lm_list[0][1], lm_list[0][2])
-
-    # For 'ok' gesture
-    index_tip = (lm_list[8][1], lm_list[8][2])
-    dist = math.hypot(thumb_tip[0] - index_tip[0], thumb_tip[1] - index_tip[1])
 
     # For Thumb
     if lm_list[4][1] > lm_list[3][1]:
@@ -98,5 +93,5 @@ def gesture_control(img, lm_list):
             exit_flag = False
 
 
-    # cv.imshow("Gesture Control", img)
+    # cv.imshow("RPS", img)
     # cv.waitKey(1)
